@@ -48,7 +48,7 @@ public class BaseController {
     public Cursor carregaDadoById(IEntityModel model){
         Cursor cursor;
         String[] campos = model.getColumns().toArray(new String[0]);
-        String where = "ID=" + model.get_id();
+        String where = "_id=" + model.get_id();
         db = banco.getReadableDatabase();
         cursor = db.query(model.getTableName() ,campos, where, null, null, null, null,
                 null);
@@ -61,7 +61,7 @@ public class BaseController {
 
     public void alteraRegistro(IEntityModel model){
         ContentValues valores;
-        String where = "ID=" + model.get_id();
+        String where = "_id=" + model.get_id();
         db = banco.getWritableDatabase();
         valores = new ContentValues();
         for (int i = 0; i < model.getColumns().size(); i++) {
@@ -72,7 +72,7 @@ public class BaseController {
     }
 
     public void deletaRegistro(IEntityModel model){
-        String where = "ID" + model.get_id();
+        String where = "_id = " + model.get_id();
         db = banco.getReadableDatabase();
         db.delete(model.getTableName(),where,null);
         db.close();

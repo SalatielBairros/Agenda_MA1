@@ -46,7 +46,7 @@ public class AlterarActivity extends AppCompatActivity {
                         txtNome.getText().toString(), txtDdd.getText().toString(), txtNumero.getText().toString());
                 crud.alteraRegistro(model);
 
-                Intent intent = new Intent(AlterarActivity.this, ListarActivity.class);
+                Intent intent = new Intent(AlterarActivity.this, ListaContatosActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -57,7 +57,7 @@ public class AlterarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 crud.deletaRegistro(ContatoModel.getInstance(Integer.parseInt(codigo)));
-                Intent intent = new Intent(AlterarActivity.this, ListarActivity.class);
+                Intent intent = new Intent(AlterarActivity.this, ListaContatosActivity.class);
                 startActivity(intent);
                 finish();
             }

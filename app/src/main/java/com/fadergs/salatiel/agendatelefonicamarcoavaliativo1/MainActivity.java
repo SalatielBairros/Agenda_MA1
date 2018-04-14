@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btnListar(View view) {
-        Intent intent = new Intent(this, ListarActivity.class);
+        Intent intent = new Intent(this, ListaContatosActivity.class);
         startActivity(intent);
     }
 }

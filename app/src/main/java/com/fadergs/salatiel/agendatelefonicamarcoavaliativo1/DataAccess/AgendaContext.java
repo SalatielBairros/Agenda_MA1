@@ -7,9 +7,10 @@ import com.fadergs.salatiel.agendatelefonicamarcoavaliativo1.Models.ContatoModel
 
 public class AgendaContext extends SQLiteOpenHelper {
     private static final String NOME_BANCO = "agenda.db";
+    private static final int VERSION = 2;
 
     public AgendaContext(Context context) {
-        super(context, NOME_BANCO, null, 1);
+        super(context, NOME_BANCO, null, VERSION);
     }
 
     @Override

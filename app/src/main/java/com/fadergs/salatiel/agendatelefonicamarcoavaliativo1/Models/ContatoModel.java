@@ -1,7 +1,5 @@
 package com.fadergs.salatiel.agendatelefonicamarcoavaliativo1.Models;
 
-import com.fadergs.salatiel.agendatelefonicamarcoavaliativo1.Interfaces.IEntityModel;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,10 +77,10 @@ public class ContatoModel extends BaseModel{
     @Override
     public String CreateTable() {
         return "CREATE TABLE "+ getTableName() +" ("
-                + "ID integer primary key autoincrement,"
-                + "NOME  text,"
-                + "DDD text,"
-                + "TELEFONE text"
+                + C_ID + " integer primary key autoincrement,"
+                + C_NOME + " text,"
+                + C_DDD + " text,"
+                + C_TELEFONE + " text"
                 +")";
 
     }
@@ -95,6 +93,7 @@ public class ContatoModel extends BaseModel{
     @Override
     public List<String> getValues() {
         List<String> retList = new ArrayList<>();
+        retList.add(Integer.toString(this.get_id()));
         retList.add(this.getNome());
         retList.add(this.getDdd());
         retList.add(this.getTelefone());
@@ -104,6 +103,7 @@ public class ContatoModel extends BaseModel{
     @Override
     public List<String> getColumns() {
         List<String> retList = new ArrayList<>();
+        retList.add(C_ID);
         retList.add(C_NOME);
         retList.add(C_DDD);
         retList.add(C_TELEFONE);

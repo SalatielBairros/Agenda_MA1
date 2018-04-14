@@ -11,21 +11,21 @@ import android.widget.SimpleCursorAdapter;
 import com.fadergs.salatiel.agendatelefonicamarcoavaliativo1.Controllers.BaseController;
 import com.fadergs.salatiel.agendatelefonicamarcoavaliativo1.Models.ContatoModel;
 
-public class ListarActivity extends AppCompatActivity {
+public class ListaContatosActivity extends AppCompatActivity {
     private ListView lista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listar);
+        setContentView(R.layout.activity_lista_contatos);
 
-        BaseController crud = new BaseController(ListarActivity.this);
+        BaseController crud = new BaseController(ListaContatosActivity.this);
         ContatoModel model = ContatoModel.getInstance();
         final Cursor cursor = crud.carregaDados(model);
         String[] nomeCampos = model.getColumns().toArray(new String[0]);
         int[] idViews = new int[] {R.id.idContato, R.id.nomeContato};
 
-        SimpleCursorAdapter adaptador = new SimpleCursorAdapter(ListarActivity.this,
+        SimpleCursorAdapter adaptador = new SimpleCursorAdapter(ListaContatosActivity.this,
                 R.layout.item_lista,
                 cursor,
                 nomeCampos,
@@ -42,9 +42,9 @@ public class ListarActivity extends AppCompatActivity {
                 cursor.moveToPosition(position);
 
                 String codigo =
-                        cursor.getString(cursor.getColumnIndexOrThrow("ID"));
+                        cursor.getString(cursor.getColumnIndexOrThrow(ContatoModel.C_ID));
 
-                Intent intent = new Intent(ListarActivity.this, AlterarActivity.class);
+                Intent intent = new Intent(ListaContatosActivity.this, AlterarActivity.class);
                 intent.putExtra("codigo", codigo);
                 startActivity(intent);
                 finish();

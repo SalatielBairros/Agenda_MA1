@@ -16,9 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ListarActivity">
-        </activity>
         <activity android:name=".AlterarActivity">
+        </activity>
+        <activity android:name=".ListaContatosActivity">
         </activity>
     </application>
 
