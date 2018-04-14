@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Agenda Telefônica MA1</string>
+    <string name="nome">Nome</string>
+    <string name="ddd">DDD</string>
+    <string name="numero">Número</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="listar">Listar</string>
+    <string name="id">ID</string>
+    <string name="unome">NOME</string>
+</resources>
