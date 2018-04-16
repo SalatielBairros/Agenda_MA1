@@ -1,11 +1,15 @@
 package com.fadergs.salatiel.agendatelefonicamarcoavaliativo1;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,14 +18,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.fadergs.salatiel.agendatelefonicamarcoavaliativo1.Controllers.BaseController;
 import com.fadergs.salatiel.agendatelefonicamarcoavaliativo1.Models.ContatoModel;
+import com.fadergs.salatiel.agendatelefonicamarcoavaliativo1.Models.UserPreferencesViewModel;
 
 public class AlterarActivity extends AppCompatActivity {
+    public static AlterarActivity GetInstance(){
+        return new AlterarActivity();
+    }
+
     private EditText txtNome;
     private EditText txtDdd;
     private EditText txtNumero;
     private Button alterar;
     private Button deletar;
-    private Button chamar;
+    private Button cancelar;
     private Cursor cursor;
     private BaseController crud;
     private String codigo;
@@ -36,7 +45,7 @@ public class AlterarActivity extends AppCompatActivity {
         txtDdd = findViewById(R.id.edtDdd);
         txtNumero = findViewById(R.id.edtNumero);
         alterar = findViewById(R.id.btnAlterar);
-        chamar = findViewById(R.id.btnChamar);
+        cancelar = findViewById(R.id.btnCancelar);
 
         ContatoModel model = ContatoModel.getInstance(Integer.parseInt(codigo));
         cursor = crud.carregaDadoById(model);
@@ -48,14 +57,19 @@ public class AlterarActivity extends AppCompatActivity {
         alterar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String nome =  txtNome.getText().toString();
+                String ddd =  txtDdd.getText().toString();
+                String numero =  txtNumero.getText().toString();
 
-                ContatoModel model = ContatoModel.getInstance(Integer.parseInt(codigo),
-                        txtNome.getText().toString(), txtDdd.getText().toString(), txtNumero.getText().toString());
-                crud.alteraRegistro(model);
+                if(MainActivity.validar(AlterarActivity.this, nome, ddd, numero)) {
+                    ContatoModel model = ContatoModel.getInstance(Integer.parseInt(codigo),
+                            nome, ddd, numero);
+                    crud.alteraRegistro(model);
 
-                Intent intent = new Intent(AlterarActivity.this, ListaContatosActivity.class);
-                startActivity(intent);
-                finish();
+                    Intent intent = new Intent(AlterarActivity.this, ListaContatosActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 
@@ -63,28 +77,45 @@ public class AlterarActivity extends AppCompatActivity {
         deletar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                crud.deletaRegistro(ContatoModel.getInstance(Integer.parseInt(codigo)));
-                Intent intent = new Intent(AlterarActivity.this, ListaContatosActivity.class);
-                startActivity(intent);
-                finish();
+                new AlertDialog.Builder(AlterarActivity.this)
+                        .setTitle(R.string.deletando_contato)
+                        .setMessage(R.string.msg_confirmacao_exclusao)
+                        .setPositiveButton(getString(R.string.sim_msg), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                crud.deletaRegistro(ContatoModel.getInstance(Integer.parseInt(codigo)));
+                                Intent intent = new Intent(AlterarActivity.this, ListaContatosActivity.class);
+                                startActivity(intent);
+                                Toast.makeText(AlterarActivity.this, R.string.sucesso_removido_contato, Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.nao_msg), null)
+                        .show();
             }
         });
 
-        chamar.setOnClickListener(new View.OnClickListener() {
+        cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri = Uri.parse("tel:" + txtDdd.getText().toString() + txtNumero.getText().toString());
-                Intent callIntent = new Intent(Intent.ACTION_DIAL, uri);
-
-                if (ActivityCompat.checkSelfPermission(AlterarActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(AlterarActivity.this, "Sem permissão para realizar esta operação.", Toast.LENGTH_LONG)
-                            .show();
-                }
-                else {
-                    startActivity(callIntent);
-                }
+                 finish();
             }
         });
+    }
+
+    public Intent callNumber(Context context, String ddd, String number){
+
+        Uri uri = Uri.parse("tel:" + ddd + number);
+        Intent callIntent = new Intent(Intent.ACTION_DIAL, uri);
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(context, "Sem permissão para realizar esta operação.", Toast.LENGTH_LONG)
+                    .show();
+            return null;
+        }
+        else {
+            return callIntent;
+        }
     }
 }
 

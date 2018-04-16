@@ -10,4 +10,22 @@
     <string name="title_activity_list_view_layout">ListViewLayoutActivity</string>
     <string name="chamar">Chamar</string>
     <string name="alterar">Alterar</string>
+    <string name="uddd">DDD</string>
+    <string name="unumero">NÚMERO</string>
+    <string name="preferencias">Preferências</string>
+    <string name="codigo_cidade">Código Cidade</string>
+    <string name="codigo_operadora">Código Operadora</string>
+    <string name="salvar">Salvar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="preferencias_usuario">Preferências Usuário</string>
+    <string name="sucesso_preferencias">Preferências salvas com sucesso.</string>
+    <string name="erro_campo_nome">O campo NOME deve ser preenchido.</string>
+    <string name="erro_campo_ddd">O campo DDD deve ser preenchido</string>
+    <string name="erro_campo_numero">O campo NÚMERO deve ser preenchido.</string>
+    <string name="excluir">Excluir</string>
+    <string name="deletando_contato">Deletando Contato</string>
+    <string name="msg_confirmacao_exclusao">Tem certeza que deseja remover este contato?</string>
+    <string name="sim_msg">sim</string>
+    <string name="nao_msg">não</string>
+    <string name="sucesso_removido_contato">Contato removido com sucesso.</string>
 </resources>

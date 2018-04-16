@@ -20,7 +20,7 @@ public class BaseController {
         ContentValues valores;
         db = banco.getWritableDatabase();
         valores = new ContentValues();
-        for (int i = 0; i < model.getColumns().size(); i++) {
+        for (int i = 1; i < model.getColumns().size(); i++) {
             valores.put(model.getColumns().get(i), model.getValues().get(i));
         }
 

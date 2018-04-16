@@ -37,5 +37,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="btnListar"
-            android:text="@string/listar" />
+            android:text="@string/cancelar" />
 </LinearLayout>
