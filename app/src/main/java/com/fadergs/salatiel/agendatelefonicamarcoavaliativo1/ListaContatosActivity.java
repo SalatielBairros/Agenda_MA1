@@ -2,6 +2,7 @@ package com.fadergs.salatiel.agendatelefonicamarcoavaliativo1;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,7 @@ public class ListaContatosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_contatos);
 
+        FloatingActionButton btnAdd = findViewById(R.id.btnAdd);
         BaseController crud = new BaseController(ListaContatosActivity.this);
         ContatoModel model = ContatoModel.getInstance();
         final Cursor cursor = crud.carregaDados(model);
@@ -48,6 +50,13 @@ public class ListaContatosActivity extends AppCompatActivity {
                 intent.putExtra("codigo", codigo);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ListaContatosActivity.this, MainActivity.class));
             }
         });
     }

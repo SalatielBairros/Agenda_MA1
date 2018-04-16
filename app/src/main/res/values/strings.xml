@@ -7,4 +7,7 @@
     <string name="listar">Listar</string>
     <string name="id">ID</string>
     <string name="unome">NOME</string>
+    <string name="title_activity_list_view_layout">ListViewLayoutActivity</string>
+    <string name="chamar">Chamar</string>
+    <string name="alterar">Alterar</string>
 </resources>

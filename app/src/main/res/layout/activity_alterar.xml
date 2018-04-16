@@ -63,7 +63,7 @@
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Alterar"
+            android:text="@string/alterar"
             android:id="@+id/btnAlterar"
             android:layout_below="@+id/edtNumero"
             android:layout_alignParentLeft="true"
@@ -71,12 +71,24 @@
             android:layout_marginTop="30dp"
             android:layout_alignRight="@+id/edtNumero"
             android:layout_alignEnd="@+id/edtNumero" />
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chamar"
+            android:id="@+id/btnChamar"
+            android:layout_below="@+id/btnAlterar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:layout_alignRight="@+id/btnAlterar"
+            android:layout_alignEnd="@+id/btnAlterar" />
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Deletar"
             android:id="@+id/btnDeletar"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/btnAlterar"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/btnChamar"
             android:layout_alignParentRight="true"/>
 </RelativeLayout>
