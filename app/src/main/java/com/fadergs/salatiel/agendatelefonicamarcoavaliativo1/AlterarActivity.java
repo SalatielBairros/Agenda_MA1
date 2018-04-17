@@ -1,6 +1,7 @@
 package com.fadergs.salatiel.agendatelefonicamarcoavaliativo1;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,6 +35,7 @@ public class AlterarActivity extends AppCompatActivity {
     private Cursor cursor;
     private BaseController crud;
     private String codigo;
+    public static final int REQUEST_PERMISSION_CODE = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,17 +107,33 @@ public class AlterarActivity extends AppCompatActivity {
 
     public Intent callNumber(Context context, String ddd, String number){
 
-        Uri uri = Uri.parse("tel:" + ddd + number);
-        Intent callIntent = new Intent(Intent.ACTION_DIAL, uri);
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
 
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(context, "Sem permissão para realizar esta operação.", Toast.LENGTH_LONG)
-                    .show();
-            return null;
+            SharedPreferences settings = context.getSharedPreferences(PreferencesActivity.PREF_NAME, Context.MODE_PRIVATE);
+            UserPreferencesViewModel preferences =
+                    new UserPreferencesViewModel(settings.getString("codCidade", ""),
+                            settings.getString("codOperadora", ""));
+            if(preferences.validate()) {
+                Uri uri = Uri.parse("tel:0" +
+                        (!preferences.getCodCidade().equals(ddd) ? preferences.getCodOperadora() : "")
+                        + ddd
+                        + number);
+
+                Intent callIntent = new Intent(Intent.ACTION_DIAL, uri);
+
+                return callIntent;
+            }
+            else{
+                Toast.makeText(context, R.string.erro_preferencias_usuario_cad, Toast.LENGTH_LONG)
+                        .show();
+            }
         }
         else {
-            return callIntent;
+            ActivityCompat.requestPermissions((Activity)context,
+                    new String[]{Manifest.permission.CALL_PHONE},
+                    REQUEST_PERMISSION_CODE);
         }
+        return null;
     }
 }
 

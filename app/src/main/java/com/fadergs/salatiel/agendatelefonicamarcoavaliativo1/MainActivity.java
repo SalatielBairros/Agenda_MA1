@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
                     String resultado = crud.insereDado(contato);
                     Toast.makeText(getApplicationContext(), resultado,
                             Toast.LENGTH_LONG).show();
+                    finish();
                 }
             }
         });

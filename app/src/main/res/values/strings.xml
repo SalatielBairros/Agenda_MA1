@@ -28,4 +28,7 @@
     <string name="sim_msg">sim</string>
     <string name="nao_msg">não</string>
     <string name="sucesso_removido_contato">Contato removido com sucesso.</string>
+    <string name="erro_sem_permissao">Sem permissão para realizar esta operação.</string>
+    <string name="permissao_concedida_msg">Permissão concedida! Tente novamente.</string>
+    <string name="erro_preferencias_usuario_cad">Sem preferências de usuário cadastradas.</string>
 </resources>

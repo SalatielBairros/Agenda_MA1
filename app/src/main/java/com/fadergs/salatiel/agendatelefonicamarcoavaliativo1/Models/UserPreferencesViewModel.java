@@ -24,4 +24,8 @@ public class UserPreferencesViewModel {
     public void setCodOperadora(String codOperadora) {
         this.codOperadora = codOperadora;
     }
+
+    public boolean validate(){
+        return (this.getCodOperadora().trim().length() > 0 && this.getCodCidade().trim().length() > 0);
+    }
 }

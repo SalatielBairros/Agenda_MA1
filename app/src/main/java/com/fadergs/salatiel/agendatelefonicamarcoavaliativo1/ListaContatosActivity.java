@@ -22,13 +22,36 @@ import com.fadergs.salatiel.agendatelefonicamarcoavaliativo1.Models.ContatoModel
 
 public class ListaContatosActivity extends AppCompatActivity {
     private ListView lista;
+    FloatingActionButton btnAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_contatos);
 
-        FloatingActionButton btnAdd = findViewById(R.id.btnAdd);
+        btnAdd = findViewById(R.id.btnAdd);
+        carregarLista();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public void onRestart() {
+        carregarLista();
+        super.onRestart();
+    }
+
+    public void preferencesClick(MenuItem item){
+        startActivity(new Intent(ListaContatosActivity.this, PreferencesActivity.class));
+    }
+
+    private void carregarLista(){
         BaseController crud = new BaseController(ListaContatosActivity.this);
         ContatoModel model = ContatoModel.getInstance();
         final Cursor cursor = crud.carregaDados(model);
@@ -85,14 +108,21 @@ public class ListaContatosActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    public void preferencesClick(MenuItem item){
-        startActivity(new Intent(ListaContatosActivity.this, PreferencesActivity.class));
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case AlterarActivity.REQUEST_PERMISSION_CODE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, R.string.permissao_concedida_msg, Toast.LENGTH_SHORT)
+                            .show();
+                }
+                else{
+                    Toast.makeText(this, R.string.erro_sem_permissao, Toast.LENGTH_LONG)
+                            .show();
+                }
+                return;
+            }
+        }
     }
 }
